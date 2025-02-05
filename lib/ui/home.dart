@@ -73,7 +73,7 @@ class HomeScreen extends StatelessWidget {
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) =>
-                                        const AttendanceScreen()));
+                                        const AttendScreen()));
                           }),
                       _BuildMenuCard(
                           icon: Icons.person_off_outlined,
@@ -89,7 +89,7 @@ class HomeScreen extends StatelessWidget {
                       _BuildMenuCard(
                           icon: Icons.perm_device_info_outlined,
                           color: Colors.green,
-                          title: 'Attendance History',
+                          title: 'History',
                           ontap: () {
                             Navigator.pushReplacement(
                                 context,
@@ -98,7 +98,7 @@ class HomeScreen extends StatelessWidget {
                                         const AttendanceListScreen()));
                           }),
                       _BuildMenuCard(
-                          icon: Icons.door_back_door,
+                          icon: Icons.exit_to_app_outlined,
                           color: Colors.brown,
                           title: 'Leave',
                           ontap: () async {
@@ -148,13 +148,15 @@ class HomeScreen extends StatelessWidget {
                 const SizedBox(
                   height: 15,
                 ),
-                Text(
-                  title,
-                  style: TextStyle(
-                      fontSize: 20,
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                      letterSpacing: 1),
+                Center(
+                  child: Text(
+                    title,
+                    style: TextStyle(
+                        fontSize: 20,
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                        letterSpacing: 1),
+                  ),
                 ),
               ],
             ),
