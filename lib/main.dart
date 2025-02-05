@@ -1,4 +1,4 @@
-import 'package:attendance/home.dart';
+import 'package:attendance/ui/home.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
