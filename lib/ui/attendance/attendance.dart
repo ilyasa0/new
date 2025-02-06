@@ -27,6 +27,7 @@ class _AttendScreenState extends State<AttendScreen> {
   void initState() {
     super.initState();
     handleLocationPermition();
+    getGeoLocation();
     image = widget.image;
   }
 
@@ -360,9 +361,9 @@ class _AttendScreenState extends State<AttendScreen> {
       return false;
     }
     LocationPermission permission = await Geolocator.checkPermission();
-    if(permission == LocationPermission.denied) {
-      permission= await Geolocator.requestPermission();
-      if(permission == LocationPermission.denied) {
+    if (permission == LocationPermission.denied) {
+      permission = await Geolocator.requestPermission();
+      if (permission == LocationPermission.denied) {
         _showSnackBar(
             icon: Icons.location_off,
             message: 'location permission denied',
@@ -373,17 +374,31 @@ class _AttendScreenState extends State<AttendScreen> {
     return true;
   }
 
-  Future<void> getGeoLocation()async{
-
+  Future<void> getGeoLocation() async {
+    Position position = await Geolocator.getCurrentPosition(
+        //ignore: deprecated_member_use
+        desiredAccuracy: LocationAccuracy.low);
+    setState(() {
+      isLoading = false;
+      getAddressFromLatLng(position);
+    });
   }
-  Future<void> getAddressFromLatLng(Position position,) async {
-    List<Placemark> placemark = await placemarkFromCoordinates(position.latitude, position.longitude);
+
+  Future<void> getAddressFromLatLng(
+    Position position,
+  ) async {
+    List<Placemark> placemark =
+        await placemarkFromCoordinates(position.latitude, position.longitude);
     Placemark place = placemark[0];
     setState(() {
       dLat = position.latitude;
       dLong = position.longitude;
-      strAddress = "${place.street}, ${place.subLocality}, ${place.locality}, ${place.postalCode}, ${place.country}";
+      strAddress =
+          "${place.street}, ${place.subLocality}, ${place.locality}, ${place.postalCode}, ${place.country}";
     });
-
   }
- }
+
+  void setDateTime() async {
+    var dateNow
+  }
+}
