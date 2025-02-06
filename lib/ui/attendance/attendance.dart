@@ -6,6 +6,7 @@ import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:intl/intl.dart';
 
+import '../home.dart';
 import 'camera.dart';
 
 class AttendScreen extends StatefulWidget {
@@ -18,11 +19,17 @@ class AttendScreen extends StatefulWidget {
 }
 
 class _AttendScreenState extends State<AttendScreen> {
-  String strAddress = "", strDate = "", strTime = "", strDateTime = "",strStatus = "";
-  int dateHours = 0, dateMinutes = 0;
+  String strAddress = "",
+      strDate = "",
+      strTime = "",
+      strDateTime = "",
+      strStatus = "";
+  int dateHours = 0,
+      dateMinutes = 0;
   bool isLoading = false;
   XFile? image;
-  double dLat = 0.0, dLong = 0.0;
+  double dLat = 0.0,
+      dLong = 0.0;
   final controllerName = TextEditingController();
 
   @override
@@ -37,7 +44,9 @@ class _AttendScreenState extends State<AttendScreen> {
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
+    Size size = MediaQuery
+        .of(context)
+        .size;
     return Scaffold(
       backgroundColor: Colors.grey[100],
       appBar: AppBar(
@@ -67,7 +76,7 @@ class _AttendScreenState extends State<AttendScreen> {
           child: Card(
             elevation: 8,
             shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+            RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
             shadowColor: Colors.indigo.withOpacity(0.2),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -150,8 +159,10 @@ class _AttendScreenState extends State<AttendScreen> {
         ),
         const SizedBox(height: 10),
         GestureDetector(
-          onTap: () => Navigator.push(
-              context, MaterialPageRoute(builder: (context) => CameraScreen())),
+          onTap: () =>
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => CameraScreen())),
           child: Container(
             width: double.infinity,
             height: 200,
@@ -165,25 +176,25 @@ class _AttendScreenState extends State<AttendScreen> {
             ),
             child: image != null
                 ? ClipRRect(
-                    borderRadius: BorderRadius.circular(15),
-                    child: Image.file(File(image!.path), fit: BoxFit.cover),
-                  )
+              borderRadius: BorderRadius.circular(15),
+              child: Image.file(File(image!.path), fit: BoxFit.cover),
+            )
                 : Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Icon(Icons.camera_enhance_rounded,
-                          size: 48, color: Colors.indigo[400]),
-                      const SizedBox(height: 10),
-                      Text(
-                        "Tap to Capture",
-                        style: TextStyle(
-                          fontSize: 16,
-                          color: Colors.indigo[600],
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                    ],
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Icon(Icons.camera_enhance_rounded,
+                    size: 48, color: Colors.indigo[400]),
+                const SizedBox(height: 10),
+                Text(
+                  "Tap to Capture",
+                  style: TextStyle(
+                    fontSize: 16,
+                    color: Colors.indigo[600],
+                    fontWeight: FontWeight.w500,
                   ),
+                ),
+              ],
+            ),
           ),
         ),
       ],
@@ -210,7 +221,7 @@ class _AttendScreenState extends State<AttendScreen> {
             filled: true,
             fillColor: Colors.grey[100],
             contentPadding:
-                const EdgeInsets.symmetric(horizontal: 15, vertical: 16),
+            const EdgeInsets.symmetric(horizontal: 15, vertical: 16),
             hintText: "Enter your name",
             hintStyle: TextStyle(color: Colors.grey[500], fontSize: 14),
             border: OutlineInputBorder(
@@ -242,44 +253,44 @@ class _AttendScreenState extends State<AttendScreen> {
         const SizedBox(height: 10),
         isLoading
             ? Container(
-                height: 120,
-                decoration: BoxDecoration(
-                  color: Colors.grey[100],
-                  borderRadius: BorderRadius.circular(15),
-                ),
-                child: Center(
-                  child: CircularProgressIndicator(color: Colors.indigo[400]),
-                ),
-              )
+          height: 120,
+          decoration: BoxDecoration(
+            color: Colors.grey[100],
+            borderRadius: BorderRadius.circular(15),
+          ),
+          child: Center(
+            child: CircularProgressIndicator(color: Colors.indigo[400]),
+          ),
+        )
             : Container(
-                height: 120,
-                padding: const EdgeInsets.all(16),
-                decoration: BoxDecoration(
-                  color: Colors.grey[100],
-                  borderRadius: BorderRadius.circular(15),
-                  border: Border.all(color: Colors.indigo[100]!, width: 1.5),
-                ),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Icon(Icons.location_pin,
-                        color: Colors.indigo[400], size: 24),
-                    const SizedBox(width: 12),
-                    Expanded(
-                      child: Text(
-                        strAddress.isNotEmpty
-                            ? strAddress
-                            : "Fetching location...",
-                        style: TextStyle(
-                          fontSize: 14,
-                          color: Colors.grey[800],
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                    ),
-                  ],
+          height: 120,
+          padding: const EdgeInsets.all(16),
+          decoration: BoxDecoration(
+            color: Colors.grey[100],
+            borderRadius: BorderRadius.circular(15),
+            border: Border.all(color: Colors.indigo[100]!, width: 1.5),
+          ),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Icon(Icons.location_pin,
+                  color: Colors.indigo[400], size: 24),
+              const SizedBox(width: 12),
+              Expanded(
+                child: Text(
+                  strAddress.isNotEmpty
+                      ? strAddress
+                      : "Fetching location...",
+                  style: TextStyle(
+                    fontSize: 14,
+                    color: Colors.grey[800],
+                    fontWeight: FontWeight.w500,
+                  ),
                 ),
               ),
+            ],
+          ),
+        ),
       ],
     );
   }
@@ -380,7 +391,7 @@ class _AttendScreenState extends State<AttendScreen> {
 
   Future<void> getGeoLocation() async {
     Position position = await Geolocator.getCurrentPosition(
-        //ignore: deprecated_member_use
+      //ignore: deprecated_member_use
         desiredAccuracy: LocationAccuracy.low);
     setState(() {
       isLoading = false;
@@ -388,17 +399,16 @@ class _AttendScreenState extends State<AttendScreen> {
     });
   }
 
-  Future<void> getAddressFromLatLng(
-    Position position,
-  ) async {
+  Future<void> getAddressFromLatLng(Position position,) async {
     List<Placemark> placemark =
-        await placemarkFromCoordinates(position.latitude, position.longitude);
+    await placemarkFromCoordinates(position.latitude, position.longitude);
     Placemark place = placemark[0];
     setState(() {
       dLat = position.latitude;
       dLong = position.longitude;
       strAddress =
-          "${place.street}, ${place.subLocality}, ${place.locality}, ${place.postalCode}, ${place.country}";
+      "${place.street}, ${place.subLocality}, ${place.locality}, ${place
+          .postalCode}, ${place.country}";
     });
   }
 
@@ -421,19 +431,57 @@ class _AttendScreenState extends State<AttendScreen> {
   void setAttendanceStatus() {
     if (dateHours < 8 || (dateHours == 8 && dateMinutes <= 30)) {
       strStatus = "Attended";
-    }else if(dateHours > 8 && dateHours > 15||(dateHours == 8 && dateMinutes >= 31)){
+    } else if (dateHours > 8 && dateHours > 15 ||
+        (dateHours == 8 && dateMinutes >= 31)) {
       strStatus = "Late";
-    }else{
+    } else {
       strStatus = "Absent";
     }
   }
 
   showLoadeDialog(BuildContext context) {
     AlertDialog alert = AlertDialog(
-
+      content: Row(
+        children: [
+          CircularProgressIndicator(
+            color: Colors.indigo[400],
+          ),
+          Container(margin: EdgeInsets.only(left: 7), child: Text("Loading")),
+        ],
+      ),
     );
-
+    showDialog(
+        barrierDismissible: false,
+        context: context,
+        builder: (BuildContext context) {
+          return alert;
+        });
   }
 
-  Future<void> submitData(String address, String status,String name) async {}
+  Future<void> submitData(String address, String status, String name) async {
+    showLoadeDialog(context);
+    dataCollection.add({
+      'address': address,
+      'status': status,
+      'name': name,
+      'dateTime': strDateTime,
+    }).then((result) {
+      try {
+        _showSnackBar(icon: Icons.check_circle_outlined,
+            message: 'Submitted',
+            color: Colors.greenAccent);
+        Navigator.pushReplacement(
+            context, MaterialPageRoute(builder: (context) => HomeScreen()));
+      } catch (e) {
+        _showSnackBar(icon: Icons.error_outline_outlined,
+            message: e.toString(),
+            color: Colors.red);
+      }
+    }).catchError((e) {
+      _showSnackBar(icon: Icons.error_outline_outlined,
+          message: e.toString(),
+          color: Colors.red);
+      Navigator.of(context).pop();
+    });
+  }
 }
