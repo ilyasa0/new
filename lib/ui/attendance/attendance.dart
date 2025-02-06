@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:camera/camera.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
@@ -31,6 +32,7 @@ class _AttendScreenState extends State<AttendScreen> {
   double dLat = 0.0,
       dLong = 0.0;
   final controllerName = TextEditingController();
+  final CollectionReference dataCollection = FirebaseFirestore.instance.collection('attendance-edit');
 
   @override
   void initState() {
