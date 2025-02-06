@@ -4,6 +4,7 @@ import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:intl/intl.dart';
 
 import 'camera.dart';
 
@@ -17,7 +18,8 @@ class AttendScreen extends StatefulWidget {
 }
 
 class _AttendScreenState extends State<AttendScreen> {
-  String strAddress = "";
+  String strAddress = "", strDate = "", strTime = "", strDateTime = "",strStatus = "";
+  int dateHours = 0, dateMinutes = 0;
   bool isLoading = false;
   XFile? image;
   double dLat = 0.0, dLong = 0.0;
@@ -28,6 +30,8 @@ class _AttendScreenState extends State<AttendScreen> {
     super.initState();
     handleLocationPermition();
     getGeoLocation();
+    setDateTime();
+    setAttendanceStatus();
     image = widget.image;
   }
 
@@ -399,6 +403,37 @@ class _AttendScreenState extends State<AttendScreen> {
   }
 
   void setDateTime() async {
-    var dateNow
+    var dateNow = DateTime.now();
+    var dateFormat = DateFormat('dd MM yyyy');
+    var dateTime = DateFormat('HH:mm:ss');
+    var dateHour = DateFormat('HH');
+    var dateMinute = DateFormat('mm');
+    setState(() {
+      strDate = dateFormat.format(dateNow);
+      strTime = dateTime.format(dateNow);
+      strDateTime = "$strDate | $strTime";
+
+      dateHours = int.parse(dateHour.format(dateNow));
+      dateMinutes = int.parse(dateMinute.format(dateNow));
+    });
   }
+
+  void setAttendanceStatus() {
+    if (dateHours < 8 || (dateHours == 8 && dateMinutes <= 30)) {
+      strStatus = "Attended";
+    }else if(dateHours > 8 && dateHours > 15||(dateHours == 8 && dateMinutes >= 31)){
+      strStatus = "Late";
+    }else{
+      strStatus = "Absent";
+    }
+  }
+
+  showLoadeDialog(BuildContext context) {
+    AlertDialog alert = AlertDialog(
+
+    );
+
+  }
+
+  Future<void> submitData(String address, String status,String name) async {}
 }
