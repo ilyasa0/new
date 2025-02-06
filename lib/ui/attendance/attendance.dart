@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
+import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 
 import 'camera.dart';
@@ -19,6 +20,7 @@ class _AttendScreenState extends State<AttendScreen> {
   String strAddress = "";
   bool isLoading = false;
   XFile? image;
+  double dLat = 0.0, dLong = 0.0;
   final controllerName = TextEditingController();
 
   @override
@@ -370,4 +372,18 @@ class _AttendScreenState extends State<AttendScreen> {
     }
     return true;
   }
-}
+
+  Future<void> getGeoLocation()async{
+
+  }
+  Future<void> getAddressFromLatLng(Position position,) async {
+    List<Placemark> placemark = await placemarkFromCoordinates(position.latitude, position.longitude);
+    Placemark place = placemark[0];
+    setState(() {
+      dLat = position.latitude;
+      dLong = position.longitude;
+      strAddress = "${place.street}, ${place.subLocality}, ${place.locality}, ${place.postalCode}, ${place.country}";
+    });
+
+  }
+ }
